@@ -31,7 +31,7 @@ export const login = async (req,res) => {
 
     if(!validPassword) return res.status(404).json({message:"userName or password is not valid ...."});
 
-    const token = jwt.sign({ userId:user.id },process.env.JWT , {expiresIn:"1hr",});
+    const token = jwt.sign({ userId:user.id },process.env.JWT , {expiresIn:"1d",});
 
     res.status(200).json({message:`welcome ${user.name}`,token})
     
@@ -64,5 +64,17 @@ export const verifyToken = async (req,res,next) =>{
     console.log(decoded); 
     
     next();
+
+}
+
+export const getUserById = async(req,res) =>{
+    const id = req.params.id
+
+    let user = await User.findById(id)
+
+    if(!user) return res.json({message:"user not exist . . . !"})
+
+    res.json({user});
+
 
 }

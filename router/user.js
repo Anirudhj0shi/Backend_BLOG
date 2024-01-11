@@ -1,6 +1,6 @@
 import express from 'express'
-import {register,login, getAllUsers} from '../controllers/user.js'
-import { verifyToken } from "../middlewares/auth.js"
+import {register,login, getAllUsers, getUserById} from '../controllers/user.js'
+import { Authenticate } from "../middlewares/auth.js"
 
 const router = express.Router();
 
@@ -12,6 +12,11 @@ router.post('/login',login);
 
 router.get('/users',getAllUsers);
 
-router.get('/superman',verifyToken,(req,res)=>res.json({message:"This is superman Route...!",data:req.user}))
+router.get('/user/:id',Authenticate,getUserById);
+
+
+router.get('/superman',Authenticate,(req,res)=>res.json({message:"This is superman Route...!",data:req.user}));
+
+
 
 export default router;

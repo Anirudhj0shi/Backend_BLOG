@@ -2,7 +2,7 @@ import { User } from "../Models/User.js";
 import  jwt  from "jsonwebtoken";
 
 
-export const verifyToken = async (req,res,next) =>{
+export const Authenticate = async (req,res,next) =>{
     const token = req.header('Auth');
 
     if(!token) return res.json({message:"can't Authorize check if u are logged in ..  "});
