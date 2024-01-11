@@ -3,6 +3,7 @@ import { config } from 'dotenv';
 import mongoose from 'mongoose';
 import userRouter from './router/user.js'
 import bodyParser from 'express'
+import {postRouter} from './router/post.js'
 
 const app = express();
 
@@ -15,6 +16,9 @@ app.use(bodyParser.json());
 
 //userRouter
 app.use('/api',userRouter);
+
+//PostRouter
+app.use('/api',postRouter);
 
 //DB Connection 
 mongoose.connect(process.env.MONGO_URL,{
