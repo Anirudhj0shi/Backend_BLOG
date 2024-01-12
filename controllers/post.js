@@ -21,7 +21,22 @@ export const getPosts = async(req,res) => {
 
 }
 
-export const updatePost = () => {}
+export const updatePost = async(req,res) => {
+    const id = req.params.id;
+    
+    const {title, description , imgUrl} = req.body;
+
+    let post = await Post.findById(id);
+    
+    if(!post) return res.json({message:"invalid Id"});
+    post.title = title,
+    post.description = description,
+    post.img = imgUrl
+
+    await post.save();
+
+    res.json({message:"Your post have been updated..!",post});
+ };
 
 export const deletePost = () => {}
 
